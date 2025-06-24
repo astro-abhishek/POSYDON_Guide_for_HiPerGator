@@ -2,9 +2,7 @@
 
 This tutorial provides step-by-step instructions for setting up and running a binary population at a single metallicity on HiPerGator using SLURM. While POSYDON offers a convenient command-line interface via `posydon-setup-popsyn`, it is important to understand how to manually configure and submit jobs using SLURM for our own understanding. This is exactly what you'll learn in this guide.
 
----
-
-## 1. Setup
+## 1. Population setup
 
 Begin by downloading the [Population_Run_Template](../Population_Run_Template) directory, which contains all necessary scripts to launch a population synthesis run on HiPerGator.
 
@@ -31,11 +29,11 @@ number_of_binaries = 2_000_000  # Total number of binaries to simulate
 primary_mass_scheme = 'Kroupa2001'  # Initial mass function for primary stars
 ```
 
-The params.ini file in the above directory is for a binary population at solar metallicity. You can change the metallicity as well to get a population synthesis run at a different metallicity.
+The `params.ini` file in the template directory is configured for a binary population at solar metallicity. You can modify the `metallicity` parameter as well to synthesize a population at a different metallicity.
 
-## 2. SLURM Submission Script
+## 2. SLURM submission script
 
-Once you're done with configuring your population synthesis run, take a look at the submission scripts that have been provided:
+Once you're done with configuring your population synthesis run, take a look at the submission scripts that have been provided within the template directory:
 
 ```
 #SBATCH --account=jeffrey.andrews
@@ -50,30 +48,38 @@ Once you're done with configuring your population synthesis run, take a look at 
 #SBATCH --mail-user=a.chattaraj@ufl.edu
 ```
 
-## 3. User-specific_changes
+Here's a breakdown of what some of these lines do:
+- `#SBATCH --partition=hpg-milan` tells you the name of the partition on HiPerGator on which your job will run. 
+- `#SBATCH -t 48:00:00` sets the wall time limit according to your needs. 
+- `#SBATCH --job-name=1e+00_Zsun` sets a name for the job (e.g., indicating solar metallicity), which appears in job monitoring tools. 
+- `#SBATCH --output=run_pop.out` and `#SBATCH --error=run_pop.err` redirects the standard output and standard error of the job to a file named `run_pop.out` and `run_pop.err`, respectively.
+
+## 3. User-specific changes
 
 Make sure to update the following in your initialisation and SLURM scripts:
 
 1. `params.ini`, `submit_script_run.sh` and `submit_script_merge.sh`:
 
-Change the path above to point to your POSYDON installation.
+Change the path below to point to your POSYDON installation.
 > ```
 >   PATH_TO_POSYDON = '/blue/jeffrey.andrews/abhishek/POSYDON/' 
+> ```
 
 2. `submit_script_run.sh` and `submit_script_merge.sh`:
+
 Replace with your email address to receive SLURM job notifications.
 > ```
->#SBATCH --mail-user=a.chattaraj@ufl.edu
+> #SBATCH --mail-user=a.chattaraj@ufl.edu
 > ```
 
-## 4. Submitting the Run
+## 4. Submitting the run
 
-Once all the above steps are complete, activate your POSYDON conda environment. Then launch your population synthesis job using:
+Once all the above steps are complete, activate your POSYDON conda environment and launch the run using:
 
 ``` 
 sbatch submit_script_run.sh
 ```
-This will submit your job as a SLURM job-array and create a `batches` directory containing the runs stored in batches. 
+This will submit your job as a SLURM job-array and create a `batches/` directory containing the runs stored in different batches. 
 
 > [!TIP]
 > Check the status of your job using (change to your username):
@@ -86,8 +92,13 @@ Once you're job is finished (you should receive an email), merge all batch files
 sbatch submit_script_merge.sh
 ```
 
-Now, you will have the single .h5 file which will contain all the binaries with the desired properties that you specified in the .ini file. 
+Now, you will have a single merged file which will contain all the binaries with the desired properties that you specified in the `params.ini` file. 
 
-## 5. Look into the Population
+## 5. Look into the population
 
-Go ahead and look into the population and check out different binary evolutionary channels, analyze different double compact object properties (DNS, BBH, NSBH), compute the distributions at different evolutioanry phases, or invent some new stuff for your special science case! 
+Go ahead and explore the population! You can:
+- Chcek out different binary evolution channels
+- Analyze different double compact object properties (DNS, BBH, NSBH)
+- Visualize the distributions at different evolutionary phases
+
+Feel free to invent some new tools or scripts tailored to your special science case! 
