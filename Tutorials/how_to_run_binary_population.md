@@ -8,26 +8,20 @@ Begin by downloading the [Population_Run_Template](../Population_Run_Template) d
 
 Modify the `params.ini` file to configure your run. Common parameters that are frequently modified include:
 
-```
-common_envelope_efficiency = 1.0  # Efficiency factor for energy conversion to eject the common envelope
-common_envelope_option_for_lambda = 'lambda_from_grid_final_values'  # Energy contributions that go into calculation of lambda
-common_envelope_option_after_succ_CEE = 'two_phases_stableMT'  # Treatment of post-CEE evolution
-```
+- `common_envelope_efficiency = 1.0`: Efficiency factor for energy conversion to eject the common envelope.
+- `common_envelope_option_for_lambda = 'lambda_from_grid_final_values'`: Energy contributions that go into calculation of lambda, the binding energy parameter.
+- `common_envelope_option_after_succ_CEE = 'two_phases_stableMT'`: Treatment of post-CEE evolution.
 
-for the common envelope phase. To change the properties related to the supernova in your population run: 
+for the common envelope phase. To change the supernova-related properties, modify: 
 
-```
-mechanism = 'Sukhbold+16-engine'  # Model for core-collapse supernova
-ECSN = 'Tauris+15'  # Model for electron-capture supernova
-kick_normalisation = 'one_over_mass'  # Prescription for natal kicks imparted during the supernova explosion
-```
+- `mechanism = 'Sukhbold+16-engine'`: Model for core-collapse supernova.
+- `ECSN = 'Tauris+15'`: Model for electron-capture supernova.
+- `kick_normalisation = 'one_over_mass'`: Prescription for natal kicks imparted during the supernova explosion.
 
 Additional parameters you may want to modify:
 
-```
-number_of_binaries = 2_000_000  # Total number of binaries to simulate
-primary_mass_scheme = 'Kroupa2001'  # Initial mass function for primary stars
-```
+- `number_of_binaries = 2_000_000`: Total number of binaries to simulate.
+- `primary_mass_scheme = 'Kroupa2001'`: Initial mass function for primary stars.
 
 The `params.ini` file in the template directory is configured for a binary population at solar metallicity. You can modify the `metallicity` parameter as well to synthesize a population at a different metallicity.
 
