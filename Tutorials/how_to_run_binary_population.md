@@ -75,8 +75,7 @@ sbatch submit_script_run.sh
 ```
 This will submit your job as a SLURM job-array and create a `batches/` directory containing the runs stored in different batches. 
 
-> [!TIP]
-> Check the status of your job using (change to your username):
+> 💡 **Tip**: Check the status of your job using (change to your username):
 > ```
 > squeue -u a.chattaraj
 > ```
