@@ -32,21 +32,28 @@ Once you're done with configuring your population synthesis run, take a look at 
 ```
 #SBATCH --account=jeffrey.andrews
 #SBATCH --partition=hpg-milan
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
 #SBATCH --array=0-199
 #SBATCH -t 48:00:00
 #SBATCH --mem-per-cpu=8G
 #SBATCH --job-name=1e+00_Zsun
-#SBATCH --output=run_pop.out
-#SBATCH --error=run_pop.err                                                                                                      
+#SBATCH --output=run_pop_%A_%a.out
+#SBATCH --error=run_pop_%A_%a.err                                                                                   
 #SBATCH --mail-type=ALL                                                                                     
 #SBATCH --mail-user=a.chattaraj@ufl.edu
 ```
 
 Here's a breakdown of what some of these lines do:
 - `#SBATCH --partition=hpg-milan` tells you the name of the partition on HiPerGator on which your job will run. 
+- `#SBATCH -N 1` requests 1 compute node.
+- `#SBATCH --ntasks=1` and `#SBATCH --cpus-per-task=1` requests 1 task and allocates 1 CPU core per task (giving you a total of 1 CPU core).
+- `#SBATCH --array=0-199` creates a job array of 200 separate jobs indexed from 0 to 199.
 - `#SBATCH -t 48:00:00` sets the wall time limit according to your needs. 
+- `#SBATCH --mem-per-cpu=8G` allocates 8 GB of memory per CPU core.
 - `#SBATCH --job-name=1e+00_Zsun` sets a name for the job (e.g., indicating solar metallicity), which appears in job monitoring tools. 
-- `#SBATCH --output=run_pop.out` and `#SBATCH --error=run_pop.err` redirects the standard output and standard error of the job to a file named `run_pop.out` and `run_pop.err`, respectively.
+- `#SBATCH --output=run_pop.out` and `#SBATCH --error=run_pop.err` redirects the standard output and standard error of the job to uniquely named files. `%A` is replaced by the master job ID and `%a` by the array index. So for job ID `123456` with array index `42`, the output file would be: `run_pop_123456_42.out`.
 
 ## 3. User-specific changes
 
