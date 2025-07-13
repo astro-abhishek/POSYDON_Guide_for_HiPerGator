@@ -7,6 +7,7 @@ This page serves as a guide to assist researchers in running the [POSYDON](https
 
 Tutorials
 - [How to Run a Binary Population](Tutorials/how_to_run_binary_population.md)
+- [How to Create a Binary Star Grid](Tutorials/how_to_create_a_binary_grid.md)
 - *(More tutorials coming soon!)*
 
 
